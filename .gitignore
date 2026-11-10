@@ -1,0 +1,9 @@
+.env
+.cache/
+__pycache__/
+.DS_Store
+samples/
+outputs/
+docs/
+outputs_private/
+.streamlit/secrets.toml
