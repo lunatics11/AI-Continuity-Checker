@@ -104,7 +104,8 @@ def clip_section(sheet):
                 st.error(str(e)[:300])
     if st.session_state.get("clip"):
         frames, rep = st.session_state["clip"]
-        st.image(frames, width=110)
+        # frames are embedded in the page (st.image can show broken icons on Streamlit Cloud)
+        show("".join(f'<img src="data:image/jpeg;base64,{base64.b64encode(f).decode()}" width="110" style="margin:0 6px 6px 0;border-radius:4px">' for f in frames))
         st.markdown(f"**{rep.summary}**")
         for m in rep.mismatches:
             card(m.severity, f'<span class="tag">{m.severity.upper()} · FRAMES {", ".join(map(str, m.frames))}</span>{m.entity}',
