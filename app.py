@@ -1,5 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
+import base64
 import streamlit as st
+import streamlit.components.v1 as components
 import pipeline as P
 
 st.set_page_config(page_title="Continuity Checker", layout="wide")
@@ -87,8 +89,9 @@ def clip_section(sheet):
     st.caption("A vision model checks 6 frames of the clip chosen at the top. "
                + ("It compares them with the reference sheet." if sheet else "No script was run, so it only checks that the frames match each other."))
     if clip_bytes:
-        left, _ = st.columns([1, 6])
-        left.video(clip_bytes)
+        # the video is embedded in the page itself: st.video can fail to load on Streamlit Cloud
+        b64 = base64.b64encode(clip_bytes).decode()
+        components.html(f'<video src="data:video/mp4;base64,{b64}" controls style="height:260px;border-radius:6px"></video>', height=270)
     else:
         st.info("Add a clip at the top of the page, or switch on the sample clip.")
     context = st.text_input("What is this shot meant to show?", placeholder="e.g. After the wedding. Juliana, muddy, with a bandaged hand, replants a daisy.")
