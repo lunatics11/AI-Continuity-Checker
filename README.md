@@ -5,6 +5,9 @@ AI video tools generate every shot from its own prompt. If a script calls a neck
 Check out the deployed version:
 https://ai-continuity-checker.streamlit.app
 
+Github:
+https://github.com/lunatics11/AI-Continuity-Checker
+
 ## Run it
 ```bash
 pip install -r requirements.txt
